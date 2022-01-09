@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/big_margin"
         android:hint="@string/input_field_hint"
-        android:inputType="numberDecimal"
         android:text="0"
         android:textAlignment="textEnd"
         android:textSize="36sp"

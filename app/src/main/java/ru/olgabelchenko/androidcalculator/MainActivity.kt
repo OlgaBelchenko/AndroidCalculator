@@ -3,6 +3,7 @@ package ru.olgabelchenko.androidcalculator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import ru.olgabelchenko.androidcalculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -80,16 +81,15 @@ class MainActivity : AppCompatActivity() {
             val resultText = when (currentOperation) {
                 "add" -> "${firstNumber + secondNumber}"
                 "subtract" -> {
-                    if (isNumberButtonPressed) {
-                        "${firstNumber - secondNumber}"
-                    } else {
-                        (-0).toString()
-                    }
+                    "${firstNumber - secondNumber}"
                 }
                 "multiply" -> "${firstNumber * secondNumber}"
                 else -> if (secondNumber != 0.0) {
                     "${firstNumber / secondNumber}"
                 } else {
+                    Toast
+                        .makeText(this, "ERROR! Division by zero!", Toast.LENGTH_SHORT)
+                        .show()
                     "0"
                 }
             }
@@ -98,9 +98,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun operationButtonClicked(operation: String) {
-        currentOperation = operation
-        firstNumber = binding.editText.text.toString().toDouble()
-        isSecondNumberStarting = true
+        if (operation == "subtract" && !isNumberButtonPressed) {
+            binding.editText.setText("-0")
+        } else {
+            currentOperation = operation
+            firstNumber = binding.editText.text.toString().toDouble()
+            isSecondNumberStarting = true
+        }
     }
 
 
