@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                     var newText = currentText + number
                     if (newText[0] == '0' && newText[1] != '.') {
                         newText = newText.substring(1)
-                    } else if (newText[0] == '-' && newText[1] == '0' && newText[3] != '.') {
+                    } else if (newText.length >= 3 && newText[0] == '-' && newText[1] == '0' && newText[2] != '.') {
                         newText = "-" + newText.substring(2)
                     }
                     binding.editText.setText(newText)
@@ -80,11 +80,9 @@ class MainActivity : AppCompatActivity() {
             secondNumber = binding.editText.text.toString().toDouble()
             val resultText = when (currentOperation) {
                 "add" -> "${firstNumber + secondNumber}"
-                "subtract" -> {
-                    "${firstNumber - secondNumber}"
-                }
+                "subtract" -> "${firstNumber - secondNumber}"
                 "multiply" -> "${firstNumber * secondNumber}"
-                else -> if (secondNumber != 0.0) {
+                "divide" -> if (secondNumber != 0.0) {
                     "${firstNumber / secondNumber}"
                 } else {
                     Toast
@@ -92,7 +90,8 @@ class MainActivity : AppCompatActivity() {
                         .show()
                     "0"
                 }
-            }
+                else -> binding.editText.text.toString()
+                }
             binding.editText.setText(resultText)
         }
     }
@@ -103,6 +102,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             currentOperation = operation
             firstNumber = binding.editText.text.toString().toDouble()
+            binding.editText.setText("0")
             isSecondNumberStarting = true
         }
     }
