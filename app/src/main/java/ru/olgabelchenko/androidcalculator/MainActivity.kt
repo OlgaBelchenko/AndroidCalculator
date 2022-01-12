@@ -23,87 +23,92 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.editText.isFocusableInTouchMode = false
-        binding.editText.isFocusable = false
+        with (binding) {
+        editText.isFocusableInTouchMode = false
+        editText.isFocusable = false
 
-        buttonList.add(binding.button0)
-        buttonList.add(binding.button1)
-        buttonList.add(binding.button2)
-        buttonList.add(binding.button3)
-        buttonList.add(binding.button4)
-        buttonList.add(binding.button5)
-        buttonList.add(binding.button6)
-        buttonList.add(binding.button7)
-        buttonList.add(binding.button8)
-        buttonList.add(binding.button9)
+        buttonList.add(button0)
+        buttonList.add(button1)
+        buttonList.add(button2)
+        buttonList.add(button3)
+        buttonList.add(button4)
+        buttonList.add(button5)
+        buttonList.add(button6)
+        buttonList.add(button7)
+        buttonList.add(button8)
+        buttonList.add(button9)
 
-        for (number in 0..9) {
-            buttonList[number].setOnClickListener {
-                if (isSecondNumberStarting) {
-                    binding.editText.setText("0")
-                    isSecondNumberStarting = false
-                }
-                val currentText = binding.editText.text.toString()
-                if (number != 0 || number == 0 && currentText != "0") {
-                    var newText = currentText + number
-                    if (newText[0] == '0' && newText[1] != '.') {
-                        newText = newText.substring(1)
-                    } else if (newText.length >= 3 && newText[0] == '-' && newText[1] == '0' && newText[2] != '.') {
-                        newText = "-" + newText.substring(2)
+
+            for (number in 0..9) {
+                buttonList[number].setOnClickListener {
+                    if (isSecondNumberStarting) {
+                        editText.setText("0")
+                        isSecondNumberStarting = false
                     }
-                    binding.editText.setText(newText)
-                    isNumberButtonPressed = true
+                    val currentText = editText.text.toString()
+                    if (number != 0 || number == 0 && currentText != "0") {
+                        var newText = currentText + number
+                        if (newText[0] == '0' && newText[1] != '.') {
+                            newText = newText.substring(1)
+                        } else if (newText.length >= 3 && newText[0] == '-' && newText[1] == '0' && newText[2] != '.') {
+                            newText = "-" + newText.substring(2)
+                        }
+                        editText.setText(newText)
+                        isNumberButtonPressed = true
+                    }
                 }
             }
-        }
 
-        binding.dotButton.setOnClickListener {
-            val currentText = binding.editText.text.toString()
-            if (!currentText.contains('.')) {
-                val newText = "$currentText."
-                binding.editText.setText(newText)
+            dotButton.setOnClickListener {
+                val currentText = editText.text.toString()
+                if (!currentText.contains('.')) {
+                    val newText = "$currentText."
+                    editText.setText(newText)
+                }
             }
-        }
 
-        binding.clearButton.setOnClickListener {
-            binding.editText.setText("0")
-            currentOperation = ""
-            isNumberButtonPressed = false
-        }
+            clearButton.setOnClickListener {
+                editText.setText("0")
+                currentOperation = ""
+                isNumberButtonPressed = false
+            }
 
-        binding.addButton.setOnClickListener { operationButtonClicked("add") }
-        binding.subtractButton.setOnClickListener { operationButtonClicked("subtract") }
-        binding.multiplyButton.setOnClickListener { operationButtonClicked("multiply") }
-        binding.divideButton.setOnClickListener { operationButtonClicked("divide") }
+            addButton.setOnClickListener { operationButtonClicked("add") }
+            subtractButton.setOnClickListener { operationButtonClicked("subtract") }
+            multiplyButton.setOnClickListener { operationButtonClicked("multiply") }
+            divideButton.setOnClickListener { operationButtonClicked("divide") }
 
-        binding.equalButton.setOnClickListener {
-            secondNumber = binding.editText.text.toString().toDouble()
-            val resultText = when (currentOperation) {
-                "add" -> "${firstNumber + secondNumber}"
-                "subtract" -> "${firstNumber - secondNumber}"
-                "multiply" -> "${firstNumber * secondNumber}"
-                "divide" -> if (secondNumber != 0.0) {
-                    "${firstNumber / secondNumber}"
-                } else {
-                    Toast
-                        .makeText(this, "ERROR! Division by zero!", Toast.LENGTH_SHORT)
-                        .show()
-                    "0"
+            equalButton.setOnClickListener {
+                secondNumber = editText.text.toString().toDouble()
+                val resultText = when (currentOperation) {
+                    "add" -> "${firstNumber + secondNumber}"
+                    "subtract" -> "${firstNumber - secondNumber}"
+                    "multiply" -> "${firstNumber * secondNumber}"
+                    "divide" -> if (secondNumber != 0.0) {
+                        "${firstNumber / secondNumber}"
+                    } else {
+                        Toast
+                            .makeText(this@MainActivity, "ERROR! Division by zero!", Toast.LENGTH_SHORT)
+                            .show()
+                        "0"
+                    }
+                    else -> editText.text.toString()
                 }
-                else -> binding.editText.text.toString()
-                }
-            binding.editText.setText(resultText)
+                editText.setText(resultText)
+            }
         }
     }
 
     private fun operationButtonClicked(operation: String) {
-        if (operation == "subtract" && !isNumberButtonPressed) {
-            binding.editText.setText("-0")
-        } else {
-            currentOperation = operation
-            firstNumber = binding.editText.text.toString().toDouble()
-            binding.editText.setText("0")
-            isSecondNumberStarting = true
+        with (binding) {
+            if (operation == "subtract" && !isNumberButtonPressed) {
+                editText.setText("-0")
+            } else {
+                currentOperation = operation
+                firstNumber = editText.text.toString().toDouble()
+                editText.setText("0")
+                isSecondNumberStarting = true
+            }
         }
     }
 
