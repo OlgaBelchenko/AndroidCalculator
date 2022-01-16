@@ -106,11 +106,10 @@ class MainActivity : AppCompatActivity() {
             } else {
                 currentOperation = operation
                 firstNumber = editText.text.toString().toDouble()
-                editText.setText("0")
+                // editText.setText("0")
                 isSecondNumberStarting = true
             }
         }
     }
-
 
 }
