@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="division_by_zero">ОШИБКА! Деление на ноль!</string>
+</resources>

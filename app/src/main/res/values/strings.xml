@@ -1,21 +1,22 @@
 <resources>
-    <string name="app_name">Android Calculator</string>
-    <string name="clear_button">Clear</string>
-    <string name="divide_button">/</string>
-    <string name="input_field_hint">0</string>
-    <string name="button_7">7</string>
-    <string name="button_8">8</string>
-    <string name="button_9">9</string>
-    <string name="button_4">4</string>
-    <string name="button_5">5</string>
-    <string name="button_6">6</string>
-    <string name="button_1">1</string>
-    <string name="button_2">2</string>
-    <string name="button_3">3</string>
-    <string name="multiply_button">*</string>
-    <string name="subtract_button">-</string>
-    <string name="add_button">+</string>
-    <string name="button_0">0</string>
-    <string name="dot_button">.</string>
-    <string name="equal_button">=</string>
+    <string name="app_name" translatable="false">Android Calculator</string>
+    <string name="clear_button" translatable="false">Clear</string>
+    <string name="divide_button" translatable="false">/</string>
+    <string name="input_field_hint" translatable="false">0</string>
+    <string name="button_7" translatable="false">7</string>
+    <string name="button_8" translatable="false">8</string>
+    <string name="button_9" translatable="false">9</string>
+    <string name="button_4" translatable="false">4</string>
+    <string name="button_5" translatable="false">5</string>
+    <string name="button_6" translatable="false">6</string>
+    <string name="button_1" translatable="false">1</string>
+    <string name="button_2" translatable="false">2</string>
+    <string name="button_3" translatable="false">3</string>
+    <string name="multiply_button" translatable="false">*</string>
+    <string name="subtract_button" translatable="false">-</string>
+    <string name="add_button" translatable="false">+</string>
+    <string name="button_0" translatable="false">0</string>
+    <string name="dot_button" translatable="false">.</string>
+    <string name="equal_button" translatable="false">=</string>
+    <string name="division_by_zero">ERROR! Division by zero!</string>
 </resources>

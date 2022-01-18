@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     private var secondNumber = 0.0
     private var currentOperation = ""
     private var isNumberButtonPressed = false
+    private var isEqualButtonPressed = false
     private var isSecondNumberStarting = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +46,10 @@ class MainActivity : AppCompatActivity() {
                         editText.setText("0")
                         isSecondNumberStarting = false
                     }
+                    if (isEqualButtonPressed) {
+                        editText.setText("0")
+                        isEqualButtonPressed = false
+                    }
                     val currentText = editText.text.toString()
                     if (number != 0 || number == 0 && currentText != "0") {
                         var newText = currentText + number
@@ -69,8 +74,10 @@ class MainActivity : AppCompatActivity() {
 
             clearButton.setOnClickListener {
                 editText.setText("0")
+                editText.hint = "0"
                 currentOperation = ""
                 isNumberButtonPressed = false
+                isEqualButtonPressed = false
             }
 
             addButton.setOnClickListener { operationButtonClicked("add") }
@@ -80,7 +87,7 @@ class MainActivity : AppCompatActivity() {
 
             equalButton.setOnClickListener {
                 secondNumber = editText.text.toString().toDouble()
-                val resultText = when (currentOperation) {
+                var resultText = when (currentOperation) {
                     "add" -> "${firstNumber + secondNumber}"
                     "subtract" -> "${firstNumber - secondNumber}"
                     "multiply" -> "${firstNumber * secondNumber}"
@@ -88,13 +95,18 @@ class MainActivity : AppCompatActivity() {
                         "${firstNumber / secondNumber}"
                     } else {
                         Toast
-                            .makeText(this@MainActivity, "ERROR! Division by zero!", Toast.LENGTH_SHORT)
+                            .makeText(this@MainActivity, R.string.division_by_zero, Toast.LENGTH_SHORT)
                             .show()
                         "0"
                     }
                     else -> editText.text.toString()
                 }
+                if (resultText.toDouble() == resultText.toDouble().toInt().toDouble()) {
+                    resultText = resultText.toDouble().toInt().toString()
+                }
                 editText.setText(resultText)
+
+                isEqualButtonPressed = true
             }
         }
     }
@@ -106,7 +118,8 @@ class MainActivity : AppCompatActivity() {
             } else {
                 currentOperation = operation
                 firstNumber = editText.text.toString().toDouble()
-                // editText.setText("0")
+//                editText.setText("")
+//                editText.hint = if (firstNumber == firstNumber.toInt().toDouble()) firstNumber.toInt().toString() else firstNumber.toString()
                 isSecondNumberStarting = true
             }
         }
